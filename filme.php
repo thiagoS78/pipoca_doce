@@ -50,13 +50,16 @@ if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 			$diretor = $diretorDAO->get($filme->getDiretor());
 		?>
 			<li id="filme">
+				<strong></strong>
+				<img src="/assets/img/filme/<?= ($filme->getImagem() != '' && file_exists('assets/img/filme/'.$filme->getImagem()) ? $filme->getImagem() : 'filme.png') ?>" alt="">
+
 				<strong>ID:</strong>
 				<p><?= $filme->getId() ?></p>
 
 				<strong>Nome:</strong>
 				<p><?= $filme->getNome() ?></p>
 
-				<strong>Genêro:</strong>
+				<strong>Gênero:</strong>
 				<p><?= $genero->getNome() ?></p>
 												
 				<strong>Duração:</strong>
@@ -75,10 +78,10 @@ if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 				<p><?= $diretor->getNome() ?></p>
 
 				<a href="form_filme.php?id=<?= $filme->getId() ?>" data-toggle="tooltip" title="Editar Filme" class="btn btn-danger">
-					Editar
+					<i class="fas fa-edit"></i>
 				</a>					
-				<a href="controle_filme.php?acao=deletar&id=<?= $filme->getId() ?>" class="btn btn-warning" onclick="return confirm('Deseja realmente exluir o gênero?')">
-					Excluir
+				<a href="controle_filme.php?acao=deletar&id=<?= $filme->getId() ?>" class="btn btn-warning" onclick="return confirm('Deseja realmente exluir o filme?')">
+					<i class="fas fa-trash-alt"></i>
 				</a>
 			</li>
 		<?php } ?>

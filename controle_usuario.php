@@ -1,6 +1,8 @@
 <?php 
+session_start();
 require 'classes/Usuario.php';
 require 'classes/UsuarioDAO.php';
+
 $usuario = new Usuario();
 $usuarioDAO = new UsuarioDAO();
 
@@ -28,7 +30,7 @@ if($acao == 'deletar') {
 	$usuarioDAO->deletar($id);
 	$msg = 'Usuário excluído com sucesso';
 
-	header("Location: usuarios.php?msg=$msg");
+	header("Location: usuario.php?msg=$msg");
 
 } else if($acao == 'cadastrar') {
 
@@ -130,7 +132,7 @@ if($acao == 'deletar') {
 	$usuario->setEmail($_POST['email']);
 	$usuario->setSenha($_POST['senha']);
 	$usuario->setTipo($_POST['tipo']);
-	//print_r($usuario); exit;
+
 
 	$usuarioDAO->alteraUsuario($usuario);
 	$msg = 'Usuário alterado com sucesso';
@@ -140,7 +142,7 @@ if($acao == 'deletar') {
 } else if($acao == 'removeImagem') {
 	$usuario = $usuarioDAO->get($id);
 
-	$imagem_a_remover = $upload['pasta_usuarios'] . $usuario->getImagem();
+	$imagem_a_remover = $upload['pasta_usuario'] . $usuario->getImagem();
 	//removendo a imagem antiga
 	if( file_exists($imagem_a_remover) ) {
 		unlink($imagem_a_remover);
@@ -150,8 +152,6 @@ if($acao == 'deletar') {
 
 	$msg = 'Imagem removida com sucesso';
 	
-	header("Location: usuarios.php?msg=$msg");
+	header("Location: usuario.php?msg=$msg");
 
 }
-
-

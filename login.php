@@ -5,7 +5,7 @@ require 'classes/UsuarioDAO.php';
 $usuarioDAO = new UsuarioDAO();
 
 $email = $_POST['email'];
-$senha = ($_POST['senha']);
+$senha = md5($_POST['senha']);
 
 $usuario = $usuarioDAO->getLogin($email, $senha);
 
@@ -16,7 +16,8 @@ if(empty($usuario)) {
 } else {
 	$_SESSION['nome'] = $usuario->getNome();
 	$_SESSION['email'] = $usuario->getEmail();
-	$_SESSION['id'] = $usuario->getId();
+	$_SESSION['imagem'] = $usuario->getImagem();
+	$_SESSION['id_usuario'] = $usuario->getId();
 
 	$msg = 'Usuário logado com sucesso!';
 	header("Location: home.php?msg=$msg");
