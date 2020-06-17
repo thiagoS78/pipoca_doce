@@ -7,6 +7,16 @@ require 'classes/ComentarioDAO.php';
 $comentarioDAO = new ComentarioDAO();
 $comentarios = $comentarioDAO->listar();
 
+require 'classes/Usuario.php';
+require 'classes/UsuarioDAO.php';
+$usuarioDAO = new UsuarioDAO();
+$usuarios = $usuarioDAO->listar();
+
+require 'classes/Filme.php';
+require 'classes/FilmeDAO.php';
+$filmeDAO = new FilmeDAO();
+$filmes = $filmeDAO->listar();
+
 if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 	$comentarios = $comentarioDAO->listar($_GET['pesquisa']);
 } else {
@@ -17,7 +27,7 @@ if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 
 <div class="row" style="margin-top:40px">
 	<div class="col-6">
-		<h2>Gerenciar Comentário</h2>
+		<h2>Gerenciar Comentários</h2>
 	</div>
 
 	<div class="col-4">
@@ -32,9 +42,9 @@ if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 	    </form>
 	</div>
 
-<!-- 	<div class="col-2">
-		<a href="form_comentario.php" class="btn btn-success">Novo Comentário</a>
-	</div> -->
+	<div class="col-2">
+		<a href="form_comentarios.php" class="btn btn-success">Novo Comentário</a>
+	</div>
 
 </div>
 <div class="row">
@@ -42,19 +52,27 @@ if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 		<thead>
 			<tr>
 				<th>#ID</th>
-				<th>Nome</th>
+				<th>Comentário</th>
 				<th>Data</th>
+				<th>Usuário</th>
+				<th>Filme</th>
 				<th>Ações</th>
 			</tr>
 		</thead>
 
 		<tbody>
-			<?php foreach ($comentarios as $comentario) { ?>
+			<?php foreach ($comentarios as $comentario) { 
+				$usuario_id = $usuarioDAO->get($comentario->getUsuarioId());
+				$filme_id = $filmeDAO->get($comentario->getFilmeId());
+			?>
 			
 			<tr>
 				<td><?= $comentario->getId() ?></td>
-				<td><?= $comentario->getDescricao() ?></td>
-				<td><?= $comentario->getdata() ?></td>
+				<td><?= $comentario->getComentario() ?></td>
+				<td><?= $comentario->getDataComentario() ?></td>
+				<td><?= $usuario_id->getNome() ?></td>
+				<td><?= $filme_id->getNome() ?></td>
+
 				<td>
 					<a href="form_comentarios.php?id=<?= $comentario->getId() ?>" class="btn btn-danger">
 						<i class="fas fa-edit"></i>

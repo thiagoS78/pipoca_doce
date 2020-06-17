@@ -20,24 +20,24 @@ if($acao == 'deletar') {
 
 } else if($acao == 'cadastrar') {
 
-	$comentario->setDescricao($_POST['descricao']);
-	$comentario->setData($_POST['data']);
+	$comentario->setComentario($_POST['comentario']);
+	$comentario->setDataComentario($_POST['data_comentario']);
 
-	$id = $comentario->insereComentario($comentario);
+	$id = $comentarioDAO->insereComentario($comentario);
 	$msg = 'comentario cadastrado com sucesso';
 
-	header("Location: form_comentario.php?id=$id&msg=$msg");
+	header("Location: form_comentarios.php?id=$id&msg=$msg");
 
 } else if($acao == 'editar') {
 
 	$id = $_POST['id'];
 	
 	$comentario->setId($_POST['id']);
-	$comentario->setDescricao($_POST['descricao']);
-	$comentario->setData($_POST['data']);
+	$comentario->setComentario($_POST['comentario']);
+	$comentario->setDataComentario($_POST['data_comentario']);
 
-	$comentario->alteraComentario($comentario);
+	$comentarioDAO->alteraComentario($comentario);
 	$msg = 'comentario alterado com sucesso';
 
-	header("Location: form_diretor.php?id=$id&msg=$msg");
+	header("Location: form_comentarios.php?id=$id&msg=$msg");
 }
