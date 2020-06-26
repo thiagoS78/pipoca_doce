@@ -32,7 +32,7 @@ if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 
 	<div class="col-4">
 		<form class="form-inline my-2 my-lg-0">
-		      <input class="form-control mr-sm-2" name="pesquisa" type="search" placeholder="Digite um Comentario" aria-label="Pesquisar" value="<?= (isset($_GET['pesquisa']) ? $_GET['pesquisa'] : '') ?>">
+		      <input class="form-control mr-sm-2" name="pesquisa" type="search" placeholder="Digite um comentário" aria-label="Pesquisar" value="<?= (isset($_GET['pesquisa']) ? $_GET['pesquisa'] : '') ?>">
 		      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
 		      	<i class="fas fa-search"></i>	
 		      </button>
@@ -74,10 +74,10 @@ if(isset($_GET['pesquisa']) && $_GET['pesquisa'] != '') {
 				<td><?= $filme_id->getNome() ?></td>
 
 				<td>
-					<a href="form_comentarios.php?id=<?= $comentario->getId() ?>" class="btn btn-danger">
+					<a href="form_comentarios.php?id=<?= $comentario->getId() ?>" class="btn btn-warning">
 						<i class="fas fa-edit"></i>
 					</a>					
-					<a href="controle_comentarios.php?acao=deletar&id=<?= $comentario->getId() ?>" class="btn btn-warning" onclick="return confirm('Deseja realmente exluir o comentario?')">
+					<a href="controle_comentarios.php?acao=deletar&id=<?= $comentario->getId() ?>" class="btn btn-danger" onclick="return confirm('Deseja realmente exluir o comentario?')">
 						<i class="fas fa-trash-alt"></i>
 					</a>
 				</td>

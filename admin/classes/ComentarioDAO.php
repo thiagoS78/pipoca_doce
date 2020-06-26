@@ -40,4 +40,22 @@ class ComentarioDAO extends Model
 		return $stmt->fetchAll();
 	}
 
+	public function listarComentario($id_filme)
+	{
+
+			$sql = "SELECT  * FROM {$this->tabela}
+					WHERE filme_id = '{$id_filme}'";
+		$stmt = $this->db->prepare($sql);
+		$stmt->setFetchMode(PDO::FETCH_CLASS, $this->class);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
+	public function deletaComentario($id)
+    {
+    	$sql = "DELETE FROM {$this->tabela} WHERE filme_id = {$id}";
+    	$stmt = $this->db->prepare($sql);
+    	$stmt->execute();
+    }
+
 }
