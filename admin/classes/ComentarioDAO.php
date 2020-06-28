@@ -25,31 +25,57 @@ class ComentarioDAO extends Model
 		$this->alterar($comentario->getId(), $values);
 	}
 
+	public function deletaComentarioUser($id)
+    {
+        $sql = "DELETE FROM {$this->tabela} WHERE usuario_id = {$id}";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+    }
+
 	public function listar($pesquisa = '')
 	{
 		if ($pesquisa != '') {
-			$sql = "SELECT * FROM {$this->tabela}
-					WHERE data like '%{$pesquisa}%'
-						OR data like '%{$pesquisa}%'";
-		} else {
-			$sql = "SELECT * FROM {$this->tabela}";
-		}
+            $sql = "SELECT * FROM {$this->tabela}
+                    WHERE data like '%{$pesquisa}%'
+                        OR data like '%{$pesquisa}%'
+                        ORDER BY id DESC";
+        } else {
+            $sql = "SELECT * FROM {$this->tabela}
+                    ORDER BY id DESC";
+        }
 		$stmt = $this->db->prepare($sql);
 		$stmt->setFetchMode(PDO::FETCH_CLASS, $this->class);
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}
+
+	public function mostrar($condicao = '')
+    {
+        $where = '';
+        if($condicao != ''){
+            $where = "where usuario_id = {$condicao}";
+        }
+        $sql = "SELECT * FROM {$this->tabela} {$where};";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, $this->class);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 
 	public function listarComentario($id_filme)
 	{
 
 			$sql = "SELECT  * FROM {$this->tabela}
-					WHERE filme_id = '{$id_filme}'";
+					WHERE filme_id = '{$id_filme}'
+					ORDER BY id DESC";
 		$stmt = $this->db->prepare($sql);
 		$stmt->setFetchMode(PDO::FETCH_CLASS, $this->class);
 		$stmt->execute();
 		return $stmt->fetchAll();
 	}
+
+	
 
 	public function deletaComentario($id)
     {

@@ -5,9 +5,9 @@
     include_once('admin/classes/FilmeDAO.php');
 
     $filmeDAO = new FilmeDAO();
-    $filmesdestaque = $filmeDAO->trailer('', 3);
+    $filmesdestaque = $filmeDAO->trailer(3);
     shuffle($filmesdestaque);
-    $filmes = $filmeDAO->listarPopulares('', 10);
+    $filmes = $filmeDAO->listarPopulares('', 10, 0);
     $filmesbreve = $filmeDAO->listarBreve(10);
 ?>
 

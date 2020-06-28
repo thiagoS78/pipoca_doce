@@ -31,9 +31,16 @@
 	$diretorDAO = new DiretorDAO();
 	$filmeDiretorDAO = new FilmeDiretorDAO();
 	$diretores = $filmeDAO->getDiretor($id);
+
 	$avaliacaoDAO = new AvaliacaoDAO();
+	if(isset($_GET['id']) && $_GET['id'] != '') {
+		$id = $_GET['id'];
+		
+		$avaliacao = $avaliacaoDAO->get($id);
+	}
 	$avaliacoes = $avaliacaoDAO->listarAvaliacao($id);
 	$comentarioDAO = new ComentarioDAO();
+
 	$comentarios = $comentarioDAO->listarComentario($id);
 	$usuarioDAO = new UsuarioDAO();
 	$usuarios = $usuarioDAO->listar();
@@ -51,10 +58,13 @@
 			<img class="estrela" src="admin/assets/img/estrelas/<?= ($avaliacao->getAvaliacao() != '' ? $avaliacao->getAvaliacao() : 0) ?>.png">
 			(<?= ($avaliacao->getAvaliacao() != '' ? $avaliacao->getAvaliacao() : 0) ?> / 5)
 		<?php 
-			endforeach; 
-			include('avaliacao.php');
+			endforeach;
+			if(isset($_SESSION['id_usuario'])) { 
+				include('avaliacao.php');
+			}else {
 		?>
-
+				<a href="form_usuario.php" class="btn btn-primary">Avaliar</a>
+		<?php } ?>
 	</div>
 	<div class="col-md-8">
 		<h1 class="filme_pag"><?= ($filme->getNome()) ?></h1>
